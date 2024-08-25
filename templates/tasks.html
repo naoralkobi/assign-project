@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Assigned Tasks</h1>
+    <form method="POST">
+        <button type="submit">Assign Tasks</button>
+    </form>
+    <br>
+    {% if tasks %}
+        <h2 style="text-align: center;">Assigned Tasks:</h2>
+        <table>
+            <tr>
+                <th>Mission Name</th>
+                <th>Assigned Soldier</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+            </tr>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.mission_name }}</td>
+                    <td>{{ task.soldier }}</td>  <!-- Changed from task.soldiers to task.soldier -->
+                    <td>{{ task.start_time }}</td>
+                    <td>{{ task.end_time }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p style="text-align: center;">No tasks assigned yet.</p>
+    {% endif %}
+</body>
+</html>
