@@ -1,8 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from module.company import Company
 import os
+from utils import verify_user
+import secrets
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)  # Generates a random 16-byte key
 
 # Paths for CSV files
 SOLDIER_FILE = 'soldiers.csv'
@@ -14,7 +17,54 @@ company = None
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('login.html')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    user_id = request.form['user_id']
+    password = request.form['password']
+
+    if verify_user(user_id, password):
+        return redirect(url_for('menu'))
+    else:
+        error_message = 'Invalid user ID or password. Please try again.'
+        return render_template('login.html', error=error_message)
+
+
+@app.route('/profile')
+def profile():
+    return "Profile page."
+
+
+@app.route('/present')
+def present():
+    return "Present page."
+
+
+@app.route('/requests')
+def requests():
+    return "Requests page."
+
+
+@app.route('/tasks')
+def tasks():
+    return "Tasks page."
+
+
+@app.route('/assignment')
+def assignment():
+    return "Assignment page."
+
+
+@app.route('/training')
+def training():
+    return "Training page."
+
+
+@app.route('/qualifications')
+def qualifications():
+    return "Qualifications page."
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -30,6 +80,11 @@ def upload_files():
         return redirect(url_for('assign_tasks'))
 
     return render_template('upload.html')
+
+
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
 
 
 @app.route('/assign', methods=['GET', 'POST'])

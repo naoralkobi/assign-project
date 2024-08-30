@@ -1,44 +1,121 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background-color: #2e2e2e; /* Dark background for a serious tone */
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Common container styling for both login and menu */
+.container {
+    background-color: #4b5320; /* Military green */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    padding: 30px 40px;
+    text-align: center;
+    width: 300px;
 }
 
 h1 {
-    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 26px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
 }
 
-form {
-    text-align: center;
-    margin-bottom: 20px;
+/* Specific styling for menu list */
+.menu-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 0 auto;
-    background-color: #fff;
+.menu-list li {
+    margin: 15px 0;
 }
 
-table, th, td {
-    border: 1px solid #ddd;
-}
-
-th, td {
+.menu-list a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #556b2f; /* Dark olive green for buttons */
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
     padding: 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
     text-align: center;
 }
 
-th {
-    background-color: #4CAF50;
-    color: white;
+.menu-list a:hover {
+    background-color: #6b8e23; /* Light olive green on hover */
+    transform: translateY(-3px);
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+.menu-list a:active {
+    background-color: #3e4e17; /* Darker green on active click */
+    transform: translateY(1px);
 }
 
-tr:hover {
-    background-color: #ddd;
+/* Specific styling for login form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-align: left;
+    width: 100%;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #556b2f; /* Dark olive green */
+    border-radius: 5px;
+    background-color: #f4f4f4;
+}
+
+button {
+    background-color: #556b2f; /* Dark olive green */
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #6b8e23; /* Light olive green on hover */
+    transform: translateY(-3px);
+}
+
+button:active {
+    background-color: #3e4e17; /* Darker green on active click */
+    transform: translateY(1px);
+}
+
+.error-box {
+    color: red;
+    background-color: #f8d7da;
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Menu</h1>
+        <ul class="menu-list">
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('present') }}">Present</a></li>
+            <li><a href="{{ url_for('requests') }}">Requests</a></li>
+            <li><a href="{{ url_for('tasks') }}">Tasks</a></li>
+            <li><a href="{{ url_for('assignment') }}">Assignment</a></li>
+            <li><a href="{{ url_for('training') }}">Training</a></li>
+            <li><a href="{{ url_for('qualifications') }}">Qualifications</a></li>
+        </ul>
+    </div>
+</body>
+</html>
