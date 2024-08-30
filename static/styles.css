@@ -119,3 +119,12 @@ button:active {
     width: 100%;
     text-align: center;
 }
+
+.exist {
+    background-color: green;
+    color: white;
+}
+.not-exist {
+    background-color: red;
+    color: white;
+}

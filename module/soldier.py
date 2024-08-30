@@ -1,7 +1,8 @@
 class Soldier:
-    def __init__(self, soldier_id, name, department, class_number, phone_number):
+    def __init__(self, soldier_id, first_name, last_name, department, class_number, phone_number):
         self.soldier_id = soldier_id
-        self.name = name
+        self.first_name = first_name
+        self.last_name = last_name
         self.department = department
         self.class_num = class_number
         self.phone_number = phone_number

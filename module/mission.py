@@ -2,8 +2,7 @@ from datetime import datetime, timedelta
 
 
 class Mission:
-    def __init__(self, mission_id, name, duration, amount, start_time):
-        self.mission_id = mission_id
+    def __init__(self, name, duration, amount, start_time):
         self.name = name
         self.duration = duration
         self.amount = amount

@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, session
+
+from db_handler import get_soldiers_list
 from module.company import Company
 import os
-from utils import verify_user
+from utils import verify_user, verify_user_is_mm_commander
 import secrets
 
 app = Flask(__name__)
@@ -25,21 +27,62 @@ def login():
     user_id = request.form['user_id']
     password = request.form['password']
 
-    if verify_user(user_id, password):
+    user = verify_user(user_id, password)
+    if user:
+        session['user'] = user
         return redirect(url_for('menu'))
     else:
         error_message = 'Invalid user ID or password. Please try again.'
         return render_template('login.html', error=error_message)
 
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)  # Clear the user session
+    return redirect(url_for('index'))
+
+
 @app.route('/profile')
 def profile():
-    return "Profile page."
+    if 'user' not in session:
+        return redirect(url_for('index'))
+    user = session['user']
+    return render_template('profile.html', user=user)
 
 
-@app.route('/present')
-def present():
-    return "Present page."
+@app.route('/presence')
+def presence():
+    if 'user' not in session:
+        return redirect(url_for('index'))
+    user = session['user']
+    if not verify_user_is_mm_commander(user):
+        return render_template('menu.html', user=user, role=user.get('role'))
+    soldiers = get_soldiers_list(department_condition=user.get('department'))
+    return render_template('presence.html', user=user, soldiers=soldiers)
+
+
+@app.route('/submit_presence', methods=['POST'])
+def submit_presence():
+    if 'user' not in session:
+        return redirect(url_for('index'))
+    user = session['user']
+
+    presence_data = {}
+    for key, value in request.form.items():
+        soldier_id, hour = key.split('_')
+        if soldier_id not in presence_data:
+            presence_data[soldier_id] = {}
+        presence_data[soldier_id][hour] = value
+
+    save_presence_data(presence_data)
+
+    return redirect(url_for('menu'))
+
+
+def save_presence_data(presence_data):
+    # Implement the logic to save presence data to the database
+    # Example: iterate over presence_data and update the corresponding rows in the database
+    pass
 
 
 @app.route('/requests')
@@ -84,7 +127,11 @@ def upload_files():
 
 @app.route('/menu')
 def menu():
-    return render_template('menu.html')
+    if 'user' not in session:
+        return redirect(url_for('index'))
+    user = session['user']
+    role = user.get('role')
+    return render_template('menu.html', user=user, role=role)
 
 
 @app.route('/assign', methods=['GET', 'POST'])

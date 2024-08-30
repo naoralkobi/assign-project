@@ -8,4 +8,4 @@ soldier_id,password,phone,first_name,last_name,department,class,role
 7,12345,500000007,alon,cohen,3,3,soldier
 8,12345,500000008,asaf,shnaid,3,2,soldier
 9,12345,500000009,ben,cohen,3,3,soldier
-10,12345,506220421,aviel,yehuda,3,4,mp_commander
+10,12345,506220421,aviel,yehuda,4,4,mp_commander

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presence</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container presence-container">
+        <h1>Presence Registration</h1>
+        <form method="post" action="{{ url_for('submit_presence') }}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>
+                            <select id="hour-select" onchange="selectHour(this)">
+                                {% for h in range(6, 30) %}
+                                <option value="{{ '%02d' % (h % 24) }}">
+                                    {{ '%02d:00' % (h % 24) }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for soldier in soldiers %}
+                    <tr>
+                        <td>{{ soldier['first_name'] }} {{ soldier['last_name'] }}</td>
+                        <td>
+                            <select id="presence_{{ soldier['soldier_id'] }}" name="{{ soldier['soldier_id'] }}_06" class="presence-select" onchange="updatePresence(this, '{{ soldier['soldier_id'] }}')">
+                                <option value="exist" class="exist" selected>exist</option>
+                                <option value="not exist" class="not-exist">not exist</option>
+                            </select>
+                            {% for h in range(6, 30) %}
+                            <input type="hidden" id="hidden_presence_{{ soldier['soldier_id'] }}_{{ '%02d' % (h % 24) }}" name="{{ soldier['soldier_id'] }}_{{ '%02d' % (h % 24) }}" value="exist">
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</body>
+</html>
